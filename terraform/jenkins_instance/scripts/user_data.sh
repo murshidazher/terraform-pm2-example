@@ -1,8 +1,10 @@
 #!/bin/bash -xe
-
+# https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-20-04
 sudo su -
 
 cd ~
+
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 
 exec > >(tee /var/log/user-data.log | logger -t user-data -s 2>/dev/console) 2>&1
 /usr/bin/wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
@@ -16,8 +18,6 @@ DEBIAN_FRONTEND=noninteractive /usr/bin/apt-get upgrade -yq
 /usr/bin/apt-get install jenkins -y
 /bin/systemctl start jenkins
 /bin/systemctl status jenkins
-/usr/sbin/ufw allow 8080
-/usr/sbin/ufw status
 
 /usr/bin/apt install python3-pip -y
 pip3 install awscli
@@ -30,9 +30,15 @@ terraform version
 /usr/bin/apt-get install git -y
 
 # install nodejs
-curl -sL https://deb.nodesource.com/setup_12.19.0 -o nodesource_setup.sh
-sudo bash nodesource_setup.sh
-sudo apt install nodejs -y
-node -v
+sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+. ~/.nvm/nvm.sh
+nvm install 12.19.0
+nvm use 12.19.0
+
+# open firewall (beware this script fails sometime so execute them manualy)
+sudo ufw allow 8080
+sudo ufw allow OpenSSH
+sudo ufw enable
+sudo ufw status
 
 echo "----- End of Updates -----"
