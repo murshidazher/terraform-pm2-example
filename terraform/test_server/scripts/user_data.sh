@@ -1,9 +1,17 @@
-#!/bin/bash
+#!/bin/bash -xe
 
 set -eux -o
+sudo su -
+cd ~
 
-sudo yum update -y
-sudo yum install -y git
+/usr/bin/apt-get update
+
+DEBIAN_FRONTEND=noninteractive /usr/bin/apt-get upgrade -yq
+
+/usr/bin/apt-get install default-jdk -y
+/usr/bin/apt-get install jenkins -y
+
+sudo apt-get install git -y
 
 # node
 sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash

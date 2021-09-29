@@ -28,6 +28,13 @@ resource "aws_security_group" "sg_web_server_pm2sdbx" {
 
   ingress {
     protocol    = "tcp"
+    from_port   = 8080
+    to_port     = 8080
+    cidr_blocks = ["10.118.8.0/22", "${data.terraform_remote_state.openvpn_remote_state.outputs.openvpn_elastic_ip}/32"]
+  }
+
+  ingress {
+    protocol    = "tcp"
     from_port   = 22
     to_port     = 22
     cidr_blocks = ["10.118.8.0/22", "${data.terraform_remote_state.openvpn_remote_state.outputs.openvpn_elastic_ip}/32"]

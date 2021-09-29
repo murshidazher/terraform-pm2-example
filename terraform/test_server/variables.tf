@@ -11,12 +11,12 @@ variable "project" {
 
 variable "ami_id" {
   description = "AMI ID to be used for Instance "
-  default     = "ami-0d5eff06f840b45e9"
+  default     = "ami-09e67e426f25ce0d7"
 }
 
 variable "ami_type" {
   description = "Type of ami instance"
-  default     = "linux-amazon"
+  default     = "ubuntu"
 }
 
 variable "instance_type" {

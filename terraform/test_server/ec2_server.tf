@@ -2,7 +2,7 @@ locals {
   stage_app_name      = "${var.AppName}-${terraform.workspace}"
   storage_volume_name = "data-${var.AppName}-${terraform.workspace}"
   connection_type     = "ssh"
-  default_username    = "ec2-user"
+  default_username    = "ubuntu"
   user_data_source    = "./scripts/user_data.sh"
 }
 
